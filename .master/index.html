@@ -1,0 +1,194 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>Operation Spark || Magic Eight Ball</title>
+	<meta name="description" content="Magic Eight Ball">
+	<meta name="author" content="operationspark.org">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+	<!-- Note: All core EaselJS classes are listed here: -->
+	<script type="text/javascript" src="js/easeljs-0.7.1.min.js"></script>
+	<script type="text/javascript" src="js/preloadjs-0.4.1.min.js"></script>
+
+	<script type="application/json" id="answers">
+	    {
+		  	"answers" : [
+				{"type": "positive", "value": "It is certain"},
+				{"type": "positive", "value": "It is decidedly so"},
+				{"type": "positive", "value": "Without a doubt"},
+				{"type": "positive", "value": "Yes definitely"},
+				{"type": "positive", "value": "You may rely on it"},
+				{"type": "positive", "value": "As I see it, yes"},
+				{"type": "positive", "value": "Most likely"},
+				{"type": "positive", "value": "Outlook good"},
+				{"type": "positive", "value": "Mos def"},
+				{"type": "positive", "value": "Signs point to yes"},
+
+				{"type": "neutral", "value": "Reply hazy try again"},
+				{"type": "neutral", "value": "Ask again later"},
+				{"type": "neutral", "value": "Better not tell you now"},
+				{"type": "neutral", "value": "Cannot predict now"},
+				{"type": "neutral", "value": "Concentrate and ask again"},
+
+				{"type": "nagative", "value": "Don't count on it"},
+				{"type": "nagative", "value": "My reply is no"},
+				{"type": "nagative", "value": "My sources say no"},
+				{"type": "nagative", "value": "Outlook not so good"},
+				{"type": "nagative", "value": "Very doubtful"}
+			]
+		}
+	</script>
+
+	<script type="text/javascript">
+	window.onload = function(){
+		var data = {
+				"images": ["images/8-ball-texture.png"],
+				"frames": [
+				    [2307, 930, 459, 462], 
+				    [1846, 1394, 459, 462], 
+				    [1846, 930, 459, 462], 
+				    [2768, 466, 459, 462], 
+				    [2307, 466, 459, 462], 
+				    [1846, 466, 459, 462], 
+				    [1385, 1394, 459, 462], 
+				    [1385, 930, 459, 462], 
+				    [1385, 466, 459, 462], 
+				    [2768, 2, 459, 462], 
+				    [2307, 2, 459, 462], 
+				    [1846, 2, 459, 462], 
+				    [1385, 2, 459, 462], 
+				    [924, 1394, 459, 462], 
+				    [924, 930, 459, 462], 
+				    [924, 466, 459, 462], 
+				    [924, 2, 459, 462], 
+				    [463, 1394, 459, 462], 
+				    [463, 930, 459, 462], 
+				    [463, 466, 459, 462], 
+				    [463, 2, 459, 462], 
+				    [2, 1394, 459, 462], 
+				    [2, 930, 459, 462], 
+				    [2, 466, 459, 462], 
+				    [2, 2, 459, 462], 
+				    [2307, 930, 459, 462]
+				],
+				"animations": {"ask": [0, 19, "false"], "reset": [19, 25, "false"]}
+		 	};
+
+		 function init() {
+			const
+				padding5 = 5, 
+				padding20 = 20,
+				msgInvalidQuestion = 'Whoa now, that doesn\'t seem like a proper question:\nWe must be polite to the magic eight ball,\nso please make certain you start your question with a capital and end it with a question mark.\nFor example, \"Will I win the lottery?\". Try again.';
+
+
+		 	var answers = JSON.parse(document.getElementById('answers').innerHTML).answers;
+			var stage = new createjs.Stage('stage');
+		 	var btnAsk = document.getElementById("btnAsk");
+		 	var txtUserInput = document.getElementById("txtUserInput");
+
+		 	var lastQuestion = "";
+
+		 	var spriteSheet = new createjs.SpriteSheet(data);
+		 	var magicEightBall = new createjs.Sprite(spriteSheet, "all");
+		 	magicEightBall.y = padding20;
+		 	stage.addChild(magicEightBall);
+			magicEightBall.stop();
+
+	 		var header = new createjs.Text("Operation Spark", "27px Arial", "#ff7700");
+			header.textBaseline = "top";
+			header.textAlign = "center";
+			header.x = stage.canvas.width / 2;
+			header.y = 0;
+			stage.addChild(header);
+
+			var labelInstruction = new createjs.Text("Ask the all powerful Magic Eight Ball a question about the future", "15px Arial", "#666666");
+			labelInstruction.textBaseline = "top";
+			labelInstruction.textAlign = "center";
+			labelInstruction.x = stage.canvas.width / 2;
+			labelInstruction.y = stage.canvas.height - labelInstruction.getBounds().height - padding5;
+			stage.addChild(labelInstruction);
+
+	 		var txt = new createjs.Text("", "25px Arial", "#ff7700");
+			txt.textBaseline = "middle";
+			txt.textAlign = "center";
+			txt.x = stage.canvas.width / 2;
+			txt.y = stage.canvas.height / 2 + 15;
+			stage.addChild(txt);
+
+	 		createjs.Ticker.addEventListener("tick", stage);
+
+			btnAsk.onclick = function() {
+				console.log("btnAsk clicked");
+
+				if (txtUserInput.value !== lastQuestion)
+				{
+					var input = txtUserInput.value.replace(/\n/g, "");
+					if (/^[A-Z].+(\?)$/.exec(input)) {
+						lastQuestion = txtUserInput.value;
+						magicEightBall.addEventListener("animationend", onAskAnimEnd);
+						magicEightBall.gotoAndPlay("ask");
+					} else {
+						alert(msgInvalidQuestion);
+						txtUserInput.value = "";
+					}
+				}
+			};
+
+			function onAskAnimEnd(e) {
+				console.log("Anim ended");
+				e.target.removeEventListener("animationend", onAskAnimEnd);
+				showResponse();
+			}
+
+			function showResponse() {
+				txt.text = answers[randomNumberBetween(0, answers.length-1)].value;
+				txtUserInput.value;
+			}
+			
+			txtUserInput.onfocus = function() {
+				if (txtUserInput.value !== "") {
+					txtUserInput.value = "";
+					lastQuestion = "";
+					doReset();
+				}
+			};
+
+			function doReset() {
+				txt.text = "";
+				magicEightBall.gotoAndPlay("reset");
+			}
+		}
+
+		function randomNumberBetween(min,max) {
+		    return Math.floor(Math.random()*(max-min+1)+min);
+		}
+		init();
+	};
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="container">
+		<div class="centered">
+			<canvas id="stage" width="464" height="470"></canvas>
+			<div>
+			<!-- Ask the Magic 8 Ball a question about the future... -->
+				<textarea id="txtUserInput" rows="1" cols="74"></textarea>
+			</div>
+			<div>
+				<button id="btnAsk">Ask Your Question...</button>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
