@@ -4,10 +4,10 @@ The magic 8 ball, yes, again, but now with a frontend built using the CreateJS a
 
 # Installation
 
-### On runnable.com:
-Create a new node app, and from the terminal, enter or cut and paste the following commands, then press enter or return:
+### Locally:
+From the terminal, enter or cut and paste the following commands, then press enter or return:
     
-    git clone https://github.com/jfraboni/magic-8-ball-web.git spark && spark/setup.sh
+    git clone https://github.com/jfraboni/magic-8-ball-web.git
     
 ...some text will fly by as the repository is cloned locally and the project is setup.
 
