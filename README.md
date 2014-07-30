@@ -39,6 +39,110 @@ We'll be using the `<canvas></canvas>` element, an element added with HTML5 that
 
 ...you should see a empty textfield and a button that says `Ask Your Question...`.  Great, let's move onto loading the sprite-sheet.
 
+**TODO 2 :**
+```javascript
+// other code...
+
+// TODO 2 : Create some DOM element variables //
+var answers = JSON.parse(document.getElementById('answers').innerHTML).answers;
+var stage = new createjs.Stage('stage');
+var btnAskQuestion = document.getElementById("btnAskQuestion");
+var txtUserInput = document.getElementById("txtUserInput");
+
+
+// other code...
+```
+
+
+**TODO 3 :**
+```javascript
+// other code...
+
+// TODO 3 : Add a listener to the tick event to redraw the stage //
+createjs.Ticker.addEventListener("tick", stage);
+
+// other code...
+```
+
+**TODO 4 :**
+```javascript
+// other code...
+
+// TODO 4 : Create and add to the stage the header //
+var txtHeader = initHeader();
+stage.addChild(txtHeader);
+
+var magicEightBall = initMagicEightBall();
+stage.addChild(magicEightBall);
+
+var txtInstruction = initInstruction();
+stage.addChild(txtInstruction);
+
+
+// other code...
+```
+
+**TODO 5 :**
+```javascript
+// other code...
+
+// TODO 5 : Initialize the response text //
+function initResponse() {
+    var txtResponse = new createjs.Text("", "25px Arial", "#ff7700");
+    txtResponse.textBaseline = "middle";
+    txtResponse.textAlign = "center";
+    txtResponse.x = stage.canvas.width / 2;
+    txtResponse.y = stage.canvas.height / 2 + 15;
+    return txtResponse;
+}
+
+// other code...
+```
+
+**TODO 5.a :**
+```javascript
+// other code...
+
+// TODO 5.a : Create and add to the stage the response //
+var txtResponse = initResponse();
+stage.addChild(txtResponse);
+
+// other code...
+```
+
+**TODO 6 :**
+```javascript
+// other code...
+
+// TODO 6 : Handle the valid question by running the ask animation //
+txtUserInput.disabled = true;                       magicEightBall.addEventListener("animationend", onAskAnimEnd);
+magicEightBall.gotoAndPlay("ask");
+
+// other code...
+```
+
+**TODO 7 :**
+```javascript
+// other code...
+
+// TODO 7 : Randomly assign an answer to the response text object //
+txtResponse.text = answers[randomNumberBetween(0, answers.length-1)].value;
+
+// other code...
+```
+
+**TODO 8 :**
+```javascript
+// other code...
+
+// TODO 8 : Do the reset steps //
+txtUserInput.value = "";
+doReset();
+
+// other code...
+
+```
+
 # Help Us Improve
 
 Please help us improve our efforts to help you learn by taking a few moments to give us feedback:
