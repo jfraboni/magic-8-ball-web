@@ -115,7 +115,8 @@ stage.addChild(txtResponse);
 // other code...
 
 // TODO 6 : Handle the valid question by running the ask animation //
-txtUserInput.disabled = true;                       magicEightBall.addEventListener("animationend", onAskAnimEnd);
+txtUserInput.disabled = true;
+magicEightBall.addEventListener("animationend", onAskAnimEnd);
 magicEightBall.gotoAndPlay("ask");
 
 // other code...
