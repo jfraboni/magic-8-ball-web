@@ -57,30 +57,18 @@
 			msgInvalidQuestion = 'Whoa now, that doesn\'t seem like a proper question:\nWe must be polite to the magic eight ball,\nso please make certain you start your question with a capital and end it with a question mark.\nFor example, \"Will I win the lottery?\". Try again.';
 
 		// TODO 2 : Create some DOM element variables //
-	 	var answers = JSON.parse(document.getElementById('answers').innerHTML).answers;
-		var stage = new createjs.Stage('stage');
-		var btnAskQuestion = document.getElementById("btnAskQuestion");
-		var txtUserInput = document.getElementById("txtUserInput");
+	 	
 
 		// TODO 4 : Create and add to the stage the header //
-	    var txtHeader = initHeader();
-		stage.addChild(txtHeader);
-
-		var magicEightBall = initMagicEightBall();
-		stage.addChild(magicEightBall);
-
-		var txtInstruction = initInstruction();
-		stage.addChild(txtInstruction);
+	    
 
 		// TODO 5.a : Create and add to the stage the response //
-		var txtResponse = initResponse();
-		stage.addChild(txtResponse);
  		
 
 		function init() {
 
 			// TODO 3 : Add a listener to the tick event to redraw the stage //
-			createjs.Ticker.addEventListener("tick", stage);
+			
 
 			btnAskQuestion.onclick = function() {
 				console.log("btnAskQuestion clicked");
@@ -136,12 +124,7 @@
 
 		// TODO 5 : Initialize the response text //
 		function initResponse() {
-			var txtResponse = new createjs.Text("", "25px Arial", "#ff7700");
-		    txtResponse.textBaseline = "middle";
-		    txtResponse.textAlign = "center";
-		    txtResponse.x = stage.canvas.width / 2;
-		    txtResponse.y = stage.canvas.height / 2 + 15;
-		    return txtResponse;
+			
 		}
 
 		function initInstruction() {
@@ -216,13 +199,7 @@
 		<div class="centered">
 			
 			<!-- TODO 1 : Add the HTML elements we need for our app -->
-			<canvas id="stage" width="470" height="490"></canvas>
-			<div>
-				<textarea id="txtUserInput" rows="1" cols="74"></textarea>
-			</div>
-			<div>
-				<button id="btnAskQuestion">Ask Your Question...</button>
-			</div>
+			
 
 		</div>
 	</div>
