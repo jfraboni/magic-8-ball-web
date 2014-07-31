@@ -26,7 +26,7 @@ We'll be using the `<canvas></canvas>` element, an element added with HTML5 that
 
 ```javascript
 <!-- TODO 1 : Add the HTML elements we need for our app -->
-<canvas id="stage" width="470" height="470"></canvas>
+<canvas id="stage" width="470" height="490"></canvas>
 <div>
     <textarea id="txtUserInput" rows="1" cols="74"></textarea>
 </div>
