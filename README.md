@@ -31,7 +31,7 @@ We'll be using the `<canvas></canvas>` element, an element added with HTML5 that
     <textarea id="txtUserInput" rows="1" cols="74"></textarea>
 </div>
 <div>
-    <button id="btnAsk">Ask Your Question...</button>
+    <button id="btnAskQuestion">Ask Your Question...</button>
 </div>
 ```
 
